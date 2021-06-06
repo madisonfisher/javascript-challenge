@@ -16,21 +16,24 @@ button.on("click", function () {
     var dateSelected = d3.select("#date");
     //getting date as value
     var inputDate = dateSelected.property("value");
-    //creating date filter
-    function filterByDate(sighting) {
-        return sighting.datetime === inputDate;
-    }
 
     //reference to the city select
     var citySelect = d3.select("#city");
     //getting city as value
     var inputCityValue = citySelect.property("value");
     var inputCity = inputCityValue.toLowerCase();
-    console.log(inputCity)
 
+    //creating date and city filter
+    if (inputCity === "" || inputDate === "") {
+        function filterBy(sighting) {
+            return sighting.datetime === inputDate || sighting.city === inputCity;}}
+    else {
+            function filterBy(sighting) {
+        return sighting.datetime === inputDate && sighting.city === inputCity;
+    }}
 
-    //filtering for only that date
-    var filtedSightings = data.filter(filterByDate);
+    //then filtering by city
+    var filtedSightings = data.filter(filterBy);
 
     //removed original table to allow for only filtered rows to show up
     tbody.html("");
