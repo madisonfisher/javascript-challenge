@@ -7,6 +7,8 @@ var dateSelected = d3.select("#date");
 //reference to the table
 var tbody = d3.select("tbody");
 
+
+
 button.on("click", function () {
     //preventing refresh
     d3.event.preventDefault();
@@ -18,6 +20,15 @@ button.on("click", function () {
     function filterByDate(sighting) {
         return sighting.datetime === inputDate;
     }
+
+    //reference to the city select
+    var citySelect = d3.select("#city");
+    //getting city as value
+    var inputCityValue = citySelect.property("value");
+    var inputCity = inputCityValue.toLowerCase();
+    console.log(inputCity)
+
+
     //filtering for only that date
     var filtedSightings = data.filter(filterByDate);
 
