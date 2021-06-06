@@ -7,19 +7,29 @@ var dateSelected = d3.select("#date");
 //reference to the table
 var tbody = d3.select("tbody");
 
-console.log(data);
-
 button.on("click", function () {
-    console.log("Hi, a button was clicked!");
-    console.log(d3.event.target);
+    //preventing refresh
+    d3.event.preventDefault();
+    // getting the date as input
+    var dateSelected = d3.select("#date");
+    //getting date as value
+    var inputDate = dateSelected.property("value");
+    //creating date filter
+    function filterByDate(sighting) {
+        return sighting.datetime === inputDate;
+    }
+    console.log(inputDate);
+    //filtering for only that date
+    var filtedSightings = data.filter(filterByDate);
+    console.log(filtedSightings);
+
+    // adding rows to the table
+    filtedSightings.forEach(function (UFO) {
+        var row = tbody.append("tr");
+        Object.entries(UFO).forEach(function ([key, value]) {
+            var cell = row.append("td");
+            cell.text(value);
+        });
+    });
 });
 
-data.forEach(function(UFO) {
-    console.log(UFO);
-    var row = tbody.append("tr");
-    Object.entries(UFO).forEach(function([key, value]) {
-      console.log(key, value);
-      var cell = row.append("td");
-      cell.text(value);
-    });
-  });
