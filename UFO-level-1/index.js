@@ -23,6 +23,9 @@ button.on("click", function () {
     var filtedSightings = data.filter(filterByDate);
     console.log(filtedSightings);
 
+    //removed original table to allow for only filtered rows to show up
+    tbody.html("");
+
     // adding rows to the table
     filtedSightings.forEach(function (UFO) {
         var row = tbody.append("tr");
@@ -33,3 +36,11 @@ button.on("click", function () {
     });
 });
 
+// adding rows to the table for when pages loads in 
+data.forEach(function (UFO) {
+    var row = tbody.append("tr");
+    Object.entries(UFO).forEach(function ([key, value]) {
+        var cell = row.append("td");
+        cell.text(value);
+    });
+});
