@@ -18,10 +18,8 @@ button.on("click", function () {
     function filterByDate(sighting) {
         return sighting.datetime === inputDate;
     }
-    console.log(inputDate);
     //filtering for only that date
     var filtedSightings = data.filter(filterByDate);
-    console.log(filtedSightings);
 
     //removed original table to allow for only filtered rows to show up
     tbody.html("");
