@@ -7,6 +7,9 @@ var dateSelected = d3.select("#date");
 //reference to the table
 var tbody = d3.select("tbody");
 
+var country = data.map(sighting => sighting.country)
+console.log(country)
+
 button.on("click", function () {
     //preventing refresh
     d3.event.preventDefault();
@@ -26,6 +29,11 @@ button.on("click", function () {
     //getting shape as value
     var inputShape = shapeSelect.property("value");
 
+    //reference to the country select
+    var countrySelect = d3.select("#country");
+    //getting country as value
+    var inputCountry = countrySelect.property("value");
+
     function filterByDate(sighting) {
         return sighting.datetime === inputDate 
         }
@@ -35,22 +43,29 @@ button.on("click", function () {
     function filterByShape(sighting) {
         return sighting.shape === inputShape 
         }
+    function filterByCountry(sighting) {
+        return sighting.country === inputCountry
+    }
 
     if (inputDate === "") {
         var filtedSightings1 = data.filter(filterByCity);
-        var filtedSightings = filtedSightings1.filter(filterByShape);
+        var filtedSightings2 = filtedSightings1.filter(filterByShape);
+        var filtedSightings = filtedSightings2.filter(filterByCountry);
     }
     else if (inputCity === "") {
         var filtedSightings1 = data.filter(filterByDate);
-        var filtedSightings = filtedSightings1.filter(filterByShape);
+        var filtedSightings2 = filtedSightings1.filter(filterByShape);
+        var filtedSightings = filtedSightings2.filter(filterByCountry);
     }
     else if (inputCity === "" && inputDate === "") {
-        var filtedSightings = data.filter(filterByShape);
+        var filtedSightings1 = data.filter(filterByShape);
+        var filtedSightings = filtedSightings1.filter(filterByCountry);
     }
     else {
         var filtedSightings1 = data.filter(filterByDate);
         var filtedSightings2 = filtedSightings1.filter(filterByCity);
-        var filtedSightings = filtedSightings2.filter(filterByShape);
+        var filtedSightings3 = filtedSightings2.filter(filterByShape);
+        var filtedSightings = filtedSightings3.filter(filterByCountry);
     }
 
     //removed original table to allow for only filtered rows to show up
