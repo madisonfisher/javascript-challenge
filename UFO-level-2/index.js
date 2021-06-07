@@ -7,9 +7,6 @@ var dateSelected = d3.select("#date");
 //reference to the table
 var tbody = d3.select("tbody");
 
-var country = data.map(sighting => sighting.country)
-console.log(country)
-
 button.on("click", function () {
     //preventing refresh
     d3.event.preventDefault();
