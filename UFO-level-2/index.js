@@ -32,6 +32,12 @@ button.on("click", function () {
     var inputCountryValue = countrySelect.property("value");
     var inputCountry = inputCountryValue.toLowerCase();
 
+    //reference to the state select
+    var stateSelect = d3.select("#state");
+    //getting state as value
+    var inputStateValue = stateSelect.property("value");
+    var inputState = inputStateValue.toLowerCase();
+
     function filterByDate(sighting) {
         return sighting.datetime === inputDate 
         }
@@ -44,26 +50,33 @@ button.on("click", function () {
     function filterByCountry(sighting) {
         return sighting.country === inputCountry
     }
+    function filterByState(sighting) {
+        return sighting.state === inputState
+    }
 
     if (inputDate === "") {
         var filtedSightings1 = data.filter(filterByCity);
         var filtedSightings2 = filtedSightings1.filter(filterByShape);
-        var filtedSightings = filtedSightings2.filter(filterByCountry);
+        var filtedSightings3 = filtedSightings2.filter(filterByCountry);
+        var filtedSightings = filtedSightings3.filter(filterByState);
     }
     else if (inputCity === "") {
         var filtedSightings1 = data.filter(filterByDate);
         var filtedSightings2 = filtedSightings1.filter(filterByShape);
-        var filtedSightings = filtedSightings2.filter(filterByCountry);
+        var filtedSightings3 = filtedSightings2.filter(filterByCountry);
+        var filtedSightings = filtedSightings3.filter(filterByState);
     }
     else if (inputCity === "" && inputDate === "") {
         var filtedSightings1 = data.filter(filterByShape);
-        var filtedSightings = filtedSightings1.filter(filterByCountry);
+        var filtedSightings2 = filtedSightings1.filter(filterByCountry);
+        var filtedSightings = filtedSightings2.filter(filterByState);
     }
     else {
         var filtedSightings1 = data.filter(filterByDate);
         var filtedSightings2 = filtedSightings1.filter(filterByCity);
         var filtedSightings3 = filtedSightings2.filter(filterByShape);
-        var filtedSightings = filtedSightings3.filter(filterByCountry);
+        var filtedSightings4 = filtedSightings3.filter(filterByCountry);
+        var filtedSightings = filtedSightings4.filter(filterByState);
     }
 
     //removed original table to allow for only filtered rows to show up
