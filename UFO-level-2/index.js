@@ -32,7 +32,8 @@ button.on("click", function () {
     //reference to the country select
     var countrySelect = d3.select("#country");
     //getting country as value
-    var inputCountry = countrySelect.property("value");
+    var inputCountryValue = countrySelect.property("value");
+    var inputCountry = inputCountryValue.toLowerCase();
 
     function filterByDate(sighting) {
         return sighting.datetime === inputDate 
